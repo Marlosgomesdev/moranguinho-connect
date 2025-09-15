@@ -8,35 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* C.R.I Moranguinho Design System */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 345 20% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 345 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 345 20% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Rosa morango como cor principal */
+    --primary: 345 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 345 70% 70%;
+    --primary-dark: 345 95% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Verde suave */
+    --secondary: 140 40% 70%;
+    --secondary-foreground: 345 20% 15%;
+    --secondary-light: 140 30% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Tons neutros acolhedores */
+    --muted: 20 20% 96%;
+    --muted-foreground: 345 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Amarelo pastel como accent */
+    --accent: 45 90% 85%;
+    --accent-foreground: 345 20% 15%;
+    --accent-bright: 45 95% 70%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 345 25% 92%;
+    --input: 345 25% 96%;
+    --ring: 345 85% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gradientes temáticos */
+    --gradient-strawberry: linear-gradient(135deg, hsl(345 85% 55%), hsl(345 70% 70%));
+    --gradient-soft: linear-gradient(135deg, hsl(20 20% 98%), hsl(345 15% 96%));
+    --gradient-nature: linear-gradient(135deg, hsl(140 40% 70%), hsl(45 90% 85%));
+
+    /* Sombras suaves */
+    --shadow-soft: 0 4px 20px -4px hsl(345 85% 55% / 0.15);
+    --shadow-card: 0 2px 16px -2px hsl(345 25% 85% / 0.2);
+    --shadow-button: 0 2px 8px -2px hsl(345 85% 45% / 0.3);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +119,71 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
+}
+
+@layer components {
+  /* Componentes personalizados C.R.I Moranguinho */
+  .gradient-strawberry {
+    background: var(--gradient-strawberry);
+  }
+  
+  .gradient-soft {
+    background: var(--gradient-soft);
+  }
+  
+  .gradient-nature {
+    background: var(--gradient-nature);
+  }
+  
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-button {
+    box-shadow: var(--shadow-button);
+  }
+  
+  /* Animações suaves */
+  .animate-gentle-bounce {
+    animation: gentle-bounce 2s ease-in-out infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .hover-lift {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+@layer utilities {
+  .text-gradient-strawberry {
+    background: var(--gradient-strawberry);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(2deg); }
+  66% { transform: translateY(-5px) rotate(-1deg); }
 }
