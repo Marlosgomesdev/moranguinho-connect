@@ -59,10 +59,19 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline" size="sm" className="hover-lift">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="hover-lift"
+              onClick={() => window.location.href = '/contato'}
+            >
               Agendar Visita
             </Button>
-            <Button size="sm" className="gradient-strawberry text-white shadow-button hover-lift">
+            <Button 
+              size="sm" 
+              className="gradient-strawberry text-white shadow-button hover-lift"
+              onClick={() => window.location.href = '/matricula'}
+            >
               <Heart className="w-4 h-4 mr-2" />
               Matrícula
             </Button>
@@ -96,10 +105,24 @@ const Header = () => {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 mt-4 px-4">
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    window.location.href = '/contato';
+                    setIsMenuOpen(false);
+                  }}
+                >
                   Agendar Visita
                 </Button>
-                <Button size="sm" className="gradient-strawberry text-white">
+                <Button 
+                  size="sm" 
+                  className="gradient-strawberry text-white"
+                  onClick={() => {
+                    window.location.href = '/matricula';
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <Heart className="w-4 h-4 mr-2" />
                   Matrícula
                 </Button>
