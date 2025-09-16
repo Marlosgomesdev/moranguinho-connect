@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Layout from "@/components/Layout/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,17 +6,50 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Contato() {
   const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    assunto: '',
+    mensagem: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Mensagem enviada!",
-      description: "Retornaremos seu contato em breve.",
-    });
+    
+    try {
+      const { error } = await supabase
+        .from('mensagens')
+        .insert([formData]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Mensagem enviada!",
+        description: "Recebemos sua mensagem. Responderemos em breve."
+      });
+
+      // Reset form
+      setFormData({
+        nome: '',
+        email: '',
+        telefone: '',
+        assunto: '',
+        mensagem: ''
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao enviar mensagem. Tente novamente.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleWhatsApp = () => {
@@ -152,6 +186,8 @@ export default function Contato() {
                         <Label htmlFor="nome">Nome *</Label>
                         <Input
                           id="nome"
+                          value={formData.nome}
+                          onChange={(e) => setFormData({...formData, nome: e.target.value})}
                           placeholder="Seu nome completo"
                           required
                         />
@@ -160,6 +196,8 @@ export default function Contato() {
                         <Label htmlFor="telefone">Telefone *</Label>
                         <Input
                           id="telefone"
+                          value={formData.telefone}
+                          onChange={(e) => setFormData({...formData, telefone: e.target.value})}
                           placeholder="(00) 00000-0000"
                           required
                         />
@@ -171,6 +209,8 @@ export default function Contato() {
                       <Input
                         id="email"
                         type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
                         placeholder="seu@email.com"
                         required
                       />
@@ -180,6 +220,8 @@ export default function Contato() {
                       <Label htmlFor="assunto">Assunto</Label>
                       <Input
                         id="assunto"
+                        value={formData.assunto}
+                        onChange={(e) => setFormData({...formData, assunto: e.target.value})}
                         placeholder="Ex: Agendar visita, Informações sobre matrícula"
                       />
                     </div>
@@ -188,6 +230,8 @@ export default function Contato() {
                       <Label htmlFor="mensagem">Mensagem *</Label>
                       <Textarea
                         id="mensagem"
+                        value={formData.mensagem}
+                        onChange={(e) => setFormData({...formData, mensagem: e.target.value})}
                         placeholder="Conte-nos como podemos ajudar..."
                         rows={5}
                         required

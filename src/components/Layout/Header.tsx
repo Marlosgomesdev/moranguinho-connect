@@ -75,6 +75,9 @@ const Header = () => {
               <Heart className="w-4 h-4 mr-2" />
               Matrícula
             </Button>
+            <Button asChild>
+              <Link to="/auth">Área Restrita</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
